@@ -1,0 +1,11 @@
+token = ""
+# broadcast chat ids
+boardcast_chats=[]
+broadcast_interval=600
+text=[
+    "CoinHot壕礼四连击，千万大礼等你来！\n\n活动时间：2018年5月16日-6月16日\n\n大礼一：注册CoinHot.com送壕礼！百万奖池送新人！\n\n大礼二：体验CoinHot场外交易平台，最高奖10000CHT！\n\n大礼三：5月天，群里嗨翻天！轻松摇骰子，天天赢大奖！\n\n大礼四：轻松一刻，好礼轻松拿！加群实名通通有礼！\n\n活动详情（必看）：http://t.cn/R3Ghbwy\n\n热币（CHT）是 CoinHot 的平台币。用户只要在平台交易或邀请好友来交易，每日即可瓜分百万 CHT 奖励。每一枚 CHT 均享有 CoinHot 的分红权，CoinHot 每天的手续费收入将全额赠送给持币者。\n\n活动赠送的 CHT 将锁定一年，分红赠送的BTC、ETH每日正常领取，出售CHT需等锁定期结束。\n\n领取的奖励为实时到账，但若发现有利用漏洞刷奖励的行为，奖励将被取消。",
+]
+
+
+
+

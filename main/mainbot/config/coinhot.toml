@@ -1,0 +1,229 @@
+# coinhost_test_bot
+token = ""
+coinhot_address = "http://10.1.1.170:8000"
+
+
+# unit: second
+delete_bot_msg_delay = 0
+
+# 管理员ID白名单
+white_list = []
+
+url_white_list = [
+        "coinhot.io",
+        "coinhot.com",
+        "dragonex.io",
+        "dragonex.im",
+        "blockchain.info",
+        "etherscan.io",
+        "t.me/coinhot",
+        "t.me/dragonex_io",
+    ]
+    
+
+# 新用户进去额外加送的消息
+welcome_extra_msg = "\n[CoinHot](https://coinhot.io)快速入门：请使用命令'/help'。（本消息将在五分钟后删除。）\n\nPlease try command '/help' for CoinHot quick start. This message will be deleted in 5 minutes."
+tips_interval = 3000
+
+# 要管理的群ID
+chats_to_manage = []
+
+[roller_config]
+    rank_path = "/Users/freeza/tmp/roller/rank/"
+    history_path = "/Users/freeza/tmp/roller/history/"
+    registered_members_path = "/Users/freeza/tmp/roller/registered_members/"
+    # roller admin ids
+    admins = []
+
+    tips = [
+        "CoinHot的网址是 https://coinhot.io",
+        "CoinHot是一个用户对用户的交易平台",
+        "CHT是基于以太坊ERC20的平台币",
+        "CHT是由用户交易后，官方赠送获得",
+        "平台冻结的CHT不会一次性解禁",
+        "CoinHot中BTC和ETH的市场参考价格每15分钟更新一次",
+        "在CoinHot上发布ETH广告，账户上至少拥有 0.1 ETH",
+        "在CoinHot上发布BTC广告，账户上至少拥有 0.01 BTC",
+        "在CoinHot上买卖币不需要支付手续费",
+        "CoinHot上的交易只有广告商需要支付手续费",
+        "在CoinHot上发布广告时，可以自动追踪其他平台的广告价格",
+        "OTC平台一般用于大宗交易",
+        "CoinHot电报群：https://t.me/coinhot",
+        "CHT放在DragonEX也可以获得分红",
+        "CHT在DragonEX分红时间为18:00左右",
+        "CoinHot上提币ETH时长约为20分钟",
+        "CoinHot上提币BTC时长约为30分钟",
+        "ETH交易可以在 https://etherscan.io上 查询",
+        "BTC交易可以在 https://blockchain.info 上查询"
+    ]
+
+    # roller chat ids
+    roller_chats = []
+    
+
+
+[[commands]]
+command = "help"
+args = []
+type = "text"
+text = "1. 所有命令不区分大小写\n2. 命令统一格式为：命令+空格+参数（多个参数使用空格分开）\n3. 所有命令一览：\n\n`/faq            常见问题\n/help           命令帮助\n/price          价格简表\n/app            应用程序\n/officialstaffs 官方人员\n/dividends      今日分红\n/bindq          绑定查询\n/bind           绑定账号\n/unbind         解绑账号\n/setaddress     设置奖励地址\n/roll           幸运摇奖\n/contract       合约地址\n/领取            领取奖励`"
+
+
+[[commands]]
+command = "faq"
+args = []
+type = "text"
+text = "'/faq'使用方式：\n\n`/faq 分红规则\n/faq 交易不确认\n/faq 交易不付款\n/faq 购买\n/faq 出售\n/faq 我要申诉\n`"
+
+[[commands]]
+command = "faq"
+args = ["分红规则"]
+type = "text"
+text = "热币（CHT）分红分为[CoinHot](https://coinhot.io)分红和[DragonEX](https://dragonex.io)分红两个部分。\n  1. CoinHot每日分红正常时间为：上午10:00 ~ 12:00，如遇节假日或其他突发情况，分红时间会适当延后。CoinHot只对在CoinHot拥有热币的账户进行分红。\n  2. DragonEX每日分红规则如下：a. DragonEX在收到CoinHot转账的分红币之后，经过人工复核没有问题。b. 分红时间一般在每日18:00前。如果遇到区块拥堵、交易量增大或者节假日等情况，分红发放时间都会适当延后，但最迟不会超过当日22:00。\n  3. CoinHot和DragonEX的每热币分红是相同的，无论您将热币放在CoinHot还是DragonEX，当天所能拿到的分红都一样。\n  4. 分红为比特币和以太坊。\n  5. 热币分红数量取决于CoinHot每天的比特币和以太坊交易量。\n  6. 热币快照时间为每日23:59:59。\n  7. 以上所有时间均为东八区时间。"
+
+[[commands]]
+command = "faq"
+args = ["交易不确认"]
+type = "text"
+text = "交易过程请注意：\n  1. 双方均有买卖自由，平台无权干涉任何用户的买卖自由。\n  2. 对方若没能及时确认收款，请首先耐心等待，因为不是所有用户都时刻守在平台。\n  3. 若超过交易时限对方还未确认收款，请进入订单对该订单进行申诉，我们会及时处理。\n\n[CoinHot](https://coinhot.io)会保证每一位用户的财产安全，请您放心。\n\n申诉方法请输入命令'/faq 我要申诉'\n"
+
+[[commands]]
+command = "faq"
+args = ["交易不付款"]
+type = "text"
+text = "交易过程请注意：\n  1. 双方均有买卖自由，平台无权干涉任何用户的买卖自由。\n  2. 确保您已经提供了可用的收款账号，并耐心等待。\n  3. 若超过时限对方并未付款，您有权利进入订单进行申诉。我们会记录您的申诉以及对方不付款的行为。\n  4. 平台会对恶意交易的用户做出判断并进行严厉惩罚。\n\n [CoinHot](https://coinhot.io)会保证每一位用户的财产安全，请您放心。\n\n申诉方法请输入命令'/faq 我要申诉'\n"
+
+[[commands]]
+command = "faq"
+args = ["出售"]
+type = "text"
+text = "通过他人发布的广告出售比特币/以太坊，您不需要支付费用。\n  1. 创建出售订单 在“买币”或“出售”功能中，选择一个广告。您将和该广告的创建者交易。请尽量选择交易量大、评价好的买家。\n  2. 您的币被托管 当您创建了出售订单后，您的币会被托管在平台中（即被锁定）。在对方取消交易时，被托管的币会退回给您。当交易完成时，被托管的币会释放给对方。\n  3. 发送付款账号 如果您有意向和对方交易，发送付款账号给对方。\n  4. 确认付款并释放比特币 如果您确认收到了对方的款项，您可以“确认付款”并释放比特币给对方。\n\n建议您详细阅读[《如何安全的出售》](https://help.coinhot.io/hc/zh-cn/articles/115004726053-%E5%A6%82%E4%BD%95%E5%AE%89%E5%85%A8%E7%9A%84%E5%87%BA%E5%94%AE)"
+
+[[commands]]
+command = "faq"
+args = ["购买"]
+type = "text"
+text = "通过他人发布的广告购买比特币/以太坊，您不需要支付费用。\n  1. 创建购买订单 在“买币”或“购买”功能中，选择一个广告。您将和该广告的创建者交易。尽量选择交易量大、评价好的卖家。\n  2. 卖家的币被锁定 当您创建了购买订单后，卖家的币会被托管在平台中（即被锁定）。如果您取消交易，被托管的币会退回给卖家。当交易完成时，被托管的币会释放给您。\n 3. 接收付款账号 通常在您创建购买订单后，如果卖家有意向和您交易，他会发送一个收款账号给您。\n 4. 付款并标记付款 通过您和卖家约定的付款账号付款给卖家，并务必在倒计时结束前标记付款。\n 5. 对方确认付款，您收到比特币 对方确认收到您的款项后，会“确认付款”并释放被锁定的币给您。\n\n建议您详细阅读[《如何安全的购买》](https://help.coinhot.io/hc/zh-cn/articles/115004723673-%E5%A6%82%E4%BD%95%E5%AE%89%E5%85%A8%E7%9A%84%E8%B4%AD%E4%B9%B0)"
+
+[[commands]]
+command = "faq"
+args = ["我要申诉"]
+type = "text"
+text = "1. 为了及时高效的处理您的问题，请您在申诉时详细描述您的问题。\n2. 如果是交易申诉，请您最好附带交易中的转账图片。\n3. 查看申诉结果方法：进入[CoinHot帮助中心](https://help.coinhot.io/hc/zh-cn)，“登录”之后，在右上角账号下查看“我的活动”。\n4. 申诉方法：[点此查看](https://help.coinhot.io/hc/zh-cn/articles/115004729493-%E5%A6%82%E4%BD%95%E7%94%B3%E8%AF%89-)"
+
+[[commands]]
+command = "app"
+args = []
+type = "text"
+text = "[点击此处](https://jq.qq.com/?_wv=1027&k=5ErLGHA)加入CoinHot app 问题反馈QQ群。\n1. 我们仅在app 问题反馈群中统计 app 有关问题，对于每个被修复的bug或更新的功能，我们会给予该项第一反馈人*100CHT*的奖励。\n2. 如软件无法下载，请*更换网络*进行尝试。\n3. 如软件无法使用，请首先删除旧版本软件，然后前往下载地址重新下载。\n4. [点击此处进入app下载地址](https://coinhot.io/app/download/)"
+
+[[commands]]
+command = "officialstaffs"
+args = []
+type = "text"
+text = "_谨防诈骗! [CoinHot](https://coinhot.io)只有以下官方人员：\n\n[CoinHot_Cindy](tg://user?id=529756611)\n[CoinHot_大大](tg://user?id=494038539)\n"
+
+[[commands]]
+command = "price"
+args = []
+type = "method"
+text = ""
+
+[[commands]]
+command = "dividends"
+args = []
+type = "method"
+text = ""
+
+[[commands]]
+command = "bind"
+args = []
+type = "method"
+text = """绑定您的[Telegram](https://t.me/coinhot)和[CoinHot](https://coinhot.io)账户，以便CoinHot在Telegram中开展活动并发放活动奖励。步骤如下：
+1. 在CoinHot登录您的账号，进入“个人中心”，“绑定Telegram账号”，点击“复制绑定命令”。
+2. 在Telegram的官方群[CoinHot](https://t.me/coinhot) 中聊天框粘贴您在步骤‘1’的“复制绑定命令“，并将命令发送在群里，等待[CoinHot机器宝宝](https://t.me/coinhot_bot)的回复。若您的绑定命令正确，则会绑定成功。
+3. 请设置您接收活动奖励的以太坊地址。请按照步骤‘2’中"CoinHot机器宝宝的"提示操作。您接收活动奖励的以太坊地址联系机器宝宝可随时修改。
+4. 您可以使用命令 `/bindq` 查询您自己的绑定状态。
+5. 绑定成功之后，您可以随时使用命令 `/unbind` 将您的账号解绑。"""
+
+[[commands]]
+command = "unbind"
+args = []
+type = "method"
+text = ""
+
+[[commands]]
+command = "bindq"
+args = []
+type = "method"
+text = ""
+
+[[commands]]
+command = "setaddress"
+args = []
+type = "method"
+
+[[commands]]
+command = "roll"
+args = []
+type = "method"
+text = ""
+
+[[commands]]
+command = "contract"
+args = []
+type = "method"
+text = ""
+
+[[commands]]
+command = "mute"
+args = []
+type = "method"
+text = ""
+
+[[commands]]
+command = "领取"
+args = []
+type = "method"
+text = "CoinHot壕礼四连击，千万大礼等你来！\n\n活动时间：2018年5月16日-6月16日\n\n大礼一：注册CoinHot.com送壕礼！百万奖池送新人！\n\n大礼二：体验CoinHot场外交易平台，最高奖10000CHT！\n\n大礼三：群里天天摇骰子，15%中奖率，海量CHT轻松拿！\n\n大礼四：轻松一刻，加群实名通通有礼，快快来领！\n\n活动详情（必看）：http://t.cn/R3Ghbwy\n\n'/领取'命令使用方式：\n\n`/领取 注册奖励\n/领取 交易奖励\n/领取 实名奖励\n/领取 邀请奖励`"
+
+
+
+[tips]
+    "-1001305594519" = [
+        "寻求普通帮助，请使用命令'/help'",
+        "我们的官方网站是: https://coinhot.io",
+        "如果想下载 app，请前往 https://coinhot.io/app/download/\n\n若有app相关其他问题，请使用命令'/app'",
+        "想解决常见问题，请使用命令'/faq'",
+        "如果您对分红规则尚不明确，请使用命令'/faq 分红规则'",
+        "如果您在交易中碰见问题，请使用命令'/faq 交易不确认' 或'/faq 交易不付款'",
+        "如果您还不知道如何购买/出售，请使用命令'/faq 购买' 或者'/faq 出售'",
+        "查询我们的官方人员telegram，请使用命令'/officialstaffs'",
+        "如果您比较关注热币实时价格，请使用命令'/price'",
+        "如果您有申诉需求，请使用命令'/faq 我要申诉'",
+        "为了保证您的申诉高效迅速的受理，请您在对交易申诉时，务必详细描述情况，*并附带交易单号*。",
+        "如果您在交易中是购买方，请在给对方打款时，将CoinHot中的订单号数字写在备注中，并且*不要备注*类似'BTC'、'ETH'、'买币'、'虚拟货币'等词汇，以免您的账号被支付宝封禁。",
+        "如果您的广告自动下架了，那么有可能是以下几种原因导致的：\n  1. 您已经离线48小时。\n  2. 该出售广告对应的币不足。\n  3. 该出售广告对应的“最低出售价格”高于目前市场价。\n\n您可以针对上述原因进行操作，避免您的广告被系统自动下架。\n",
+        "由于某种原因，QQ群可能随时被不可抗力禁用，我们并不推荐大家在QQ群中交流。\n\n进入QQ群的朋友，希望遵守QQ群规则。\n\n我们的QQ群链接：[点击加入](https://jq.qq.com/?_wv=1027&k=5jywUN7)。",
+        "希望您能和我们一起维护本群，不要主动分享广告链接或图片，不要影响群内秩序。谢谢您的合作。"
+    ]
+
+
+[redis]
+addr = "127.0.0.1:6379"
+db = 0
+password = ""
+
+# help - 命令帮助
+# faq - 常见问题
+# app - 应用程序
+# price - 热币价格
+# dividends - 今日分红
+# officialstaffs - 官方人员
+# bind - 绑定账号
+# bindq - 绑定查询
+# unbind - 解绑账号
+# setaddress - 设置奖励接收地址
+# roll - 幸运摇奖
+# contract - 合约地址
+# 领取 - 领取奖励
