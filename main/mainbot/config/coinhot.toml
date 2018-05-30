@@ -1,5 +1,5 @@
 # coinhost_test_bot
-token = ""
+token = "575982563:AAGKVGQ4asyZdrmO7Z03-RB4Xtm68UZoRq8"
 coinhot_address = "http://10.1.1.170:8000"
 
 
@@ -23,6 +23,7 @@ url_white_list = [
 
 # 新用户进去额外加送的消息
 welcome_extra_msg = "\n[CoinHot](https://coinhot.io)快速入门：请使用命令'/help'。（本消息将在五分钟后删除。）\n\nPlease try command '/help' for CoinHot quick start. This message will be deleted in 5 minutes."
+
 tips_interval = 3000
 
 # 要管理的群ID
@@ -66,7 +67,7 @@ chats_to_manage = []
 command = "help"
 args = []
 type = "text"
-text = "1. 所有命令不区分大小写\n2. 命令统一格式为：命令+空格+参数（多个参数使用空格分开）\n3. 所有命令一览：\n\n`/faq            常见问题\n/help           命令帮助\n/price          价格简表\n/app            应用程序\n/officialstaffs 官方人员\n/dividends      今日分红\n/bindq          绑定查询\n/bind           绑定账号\n/unbind         解绑账号\n/setaddress     设置奖励地址\n/roll           幸运摇奖\n/contract       合约地址\n/领取            领取奖励`"
+text = "1. 所有命令不区分大小写\n2. 命令统一格式为：命令+空格+参数（多个参数使用空格分开）\n3. 所有命令一览：\n\n`/help           命令帮助\n/binding        绑定云网\n`"
 
 
 [[commands]]
@@ -187,25 +188,16 @@ args = []
 type = "method"
 text = "CoinHot壕礼四连击，千万大礼等你来！\n\n活动时间：2018年5月16日-6月16日\n\n大礼一：注册CoinHot.com送壕礼！百万奖池送新人！\n\n大礼二：体验CoinHot场外交易平台，最高奖10000CHT！\n\n大礼三：群里天天摇骰子，15%中奖率，海量CHT轻松拿！\n\n大礼四：轻松一刻，加群实名通通有礼，快快来领！\n\n活动详情（必看）：http://t.cn/R3Ghbwy\n\n'/领取'命令使用方式：\n\n`/领取 注册奖励\n/领取 交易奖励\n/领取 实名奖励\n/领取 邀请奖励`"
 
-
+[[commands]]
+command = "binding"
+args = []
+type = "method"
+text = ""
 
 [tips]
-    "-1001305594519" = [
+    "-1001162878413" = [
         "寻求普通帮助，请使用命令'/help'",
-        "我们的官方网站是: https://coinhot.io",
-        "如果想下载 app，请前往 https://coinhot.io/app/download/\n\n若有app相关其他问题，请使用命令'/app'",
-        "想解决常见问题，请使用命令'/faq'",
-        "如果您对分红规则尚不明确，请使用命令'/faq 分红规则'",
-        "如果您在交易中碰见问题，请使用命令'/faq 交易不确认' 或'/faq 交易不付款'",
-        "如果您还不知道如何购买/出售，请使用命令'/faq 购买' 或者'/faq 出售'",
-        "查询我们的官方人员telegram，请使用命令'/officialstaffs'",
-        "如果您比较关注热币实时价格，请使用命令'/price'",
-        "如果您有申诉需求，请使用命令'/faq 我要申诉'",
-        "为了保证您的申诉高效迅速的受理，请您在对交易申诉时，务必详细描述情况，*并附带交易单号*。",
-        "如果您在交易中是购买方，请在给对方打款时，将CoinHot中的订单号数字写在备注中，并且*不要备注*类似'BTC'、'ETH'、'买币'、'虚拟货币'等词汇，以免您的账号被支付宝封禁。",
-        "如果您的广告自动下架了，那么有可能是以下几种原因导致的：\n  1. 您已经离线48小时。\n  2. 该出售广告对应的币不足。\n  3. 该出售广告对应的“最低出售价格”高于目前市场价。\n\n您可以针对上述原因进行操作，避免您的广告被系统自动下架。\n",
-        "由于某种原因，QQ群可能随时被不可抗力禁用，我们并不推荐大家在QQ群中交流。\n\n进入QQ群的朋友，希望遵守QQ群规则。\n\n我们的QQ群链接：[点击加入](https://jq.qq.com/?_wv=1027&k=5jywUN7)。",
-        "希望您能和我们一起维护本群，不要主动分享广告链接或图片，不要影响群内秩序。谢谢您的合作。"
+        "我们的官方网站是: http://snetwork.io",
     ]
 
 

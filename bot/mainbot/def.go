@@ -16,6 +16,7 @@ type BotConfig struct {
 	CoinHotAddress    string              `toml:"coinhot_address"`
 }
 
+
 type rollerConfig struct {
 	Admins                []int    `toml:"admins"`
 	Tips                  []string `toml:"tips"`

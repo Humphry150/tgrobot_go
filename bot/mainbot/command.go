@@ -10,6 +10,19 @@ import (
 	"github.com/go-telegram-bot-api/telegram-bot-api"
 )
 
+func bindingYW(api *tgbotapi.BotAPI, message *tgbotapi.Message) {
+
+	sendTextMessage(
+		api,
+		message.Chat.ID,
+		"哦, 私聊我你的云网code吧~\n\n注意: 格式 /binding(空格)邀请码, 不要附带其他信息哈.",
+		time.Duration(conf.DeleteBotMsgDelay)*time.Second,
+		false,
+		message.MessageID,
+	)
+}
+
+
 func priceMethod(api *tgbotapi.BotAPI, message *tgbotapi.Message) {
 	sendTextMessage(
 		api,
@@ -410,27 +423,29 @@ func handleInstantCommand(api *tgbotapi.BotAPI, message *tgbotapi.Message, helpT
 	if isCommand(message) {
 		if isMethod(message) {
 			switch getCommand(message) {
-			case "price":
-				priceMethod(api, message)
-			case "dividends":
-				dividendsMethod(api, message)
-			case "bind":
-				bindMethod(api, message, instruction)
-			case "bindq":
-				bindqMethod(api, message, instruction)
-				// 此方法只对私聊使用
-			case "setaddress":
-				setAddressMethod(api, message, instruction)
-			case "unbind":
-				unbindMethod(api, message, instruction)
-			case "roll":
-				rollMethod(api, message, instruction)
-			case "contract":
-				contractMethod(api, message, helpText)
-			case "mute":
-				muteMethod(api, message, helpText)
-			case "领取":
-				getMethod(api, message, instruction)
+			//case "price":
+			//	priceMethod(api, message)
+			//case "dividends":
+			//	dividendsMethod(api, message)
+			//case "bind":
+			//	bindMethod(api, message, instruction)
+			//case "bindq":
+			//	bindqMethod(api, message, instruction)
+			//	// 此方法只对私聊使用
+			//case "setaddress":
+			//	setAddressMethod(api, message, instruction)
+			//case "unbind":
+			//	unbindMethod(api, message, instruction)
+			//case "roll":
+			//	rollMethod(api, message, instruction)
+			//case "contract":
+			//	contractMethod(api, message, helpText)
+			//case "mute":
+			//	muteMethod(api, message, helpText)
+			//case "领取":
+			//	getMethod(api, message, instruction)
+			case "binding":
+				bindingYW(api, message)
 			default:
 				sendTextMessage(
 					api,

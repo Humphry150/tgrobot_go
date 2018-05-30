@@ -3,13 +3,12 @@ package bot
 import (
 	"flag"
 	"fmt"
-	"strconv"
 	"strings"
 	"sync"
 	"time"
 
 	"github.com/BurntSushi/toml"
-	redis "gopkg.in/redis.v4"
+	"gopkg.in/redis.v4"
 
 	"bitbucket.org/magmeng/go-utils/but4print"
 	"bitbucket.org/magmeng/go-utils/log"
@@ -31,6 +30,11 @@ var testOn = flag.Bool("test", false, "test mode")
 type chatMessage struct {
 	gid  int64
 	msgs []*tgbotapi.Message
+}
+
+// 绑定用户云网帐号
+func doBindingYW() {
+
 }
 
 // 将需要队列处理的消息全部丢进队列，机器人每隔一段时间对消息进行处理
@@ -307,8 +311,12 @@ func checkMessage(api *tgbotapi.BotAPI, msg *tgbotapi.Message) {
 
 func handleCommand(api *tgbotapi.BotAPI, msg *tgbotapi.Message, helpText string) {
 	if isPrivateChat(msg) {
-		if msg.Command() == "start" {
-			isPrivateChatRequest(fmt.Sprintf("%d", msg.From.ID))
+		//if msg.Command() == "start" {
+		//	isPrivateChatRequest(fmt.Sprintf("%d", msg.From.ID))
+		//}
+		if msg.Command() == "binding" && len(msg.CommandArguments()) > 0 {
+			sendTextMessage(api, msg.Chat.ID, "你的code是" + msg.CommandArguments() + " 请稍等,我正在给你处理...", 0, false)
+			return
 		}
 	}
 
@@ -340,6 +348,7 @@ func handleMessage(api *tgbotapi.BotAPI, msg *tgbotapi.Message, helpText string)
 		return
 	}
 
+	// 配置了chats_to_manage的群, 就会被管理..
 	if messageMustBeCheck(msg) {
 		checkMessage(api, msg)
 	}
@@ -360,6 +369,7 @@ func sendMsgBot(api *tgbotapi.BotAPI, helpText string) {
 	}
 
 	for update := range updates {
+		DebugLog("sendMsgBot")
 		if update.Message != nil {
 			DebugLog("[%s] %s", update.Message.From.UserName, update.Message.Text)
 			DebugLog("command: %s Args: %s", update.Message.Command(), update.Message.CommandArguments())
@@ -367,7 +377,6 @@ func sendMsgBot(api *tgbotapi.BotAPI, helpText string) {
 
 		// answerCallback(api, update.CallbackQuery)
 		handleMessage(api, update.Message, helpText)
-
 	}
 }
 
@@ -391,6 +400,7 @@ var messageAlignerStopChan = make(chan struct{}, 1)
 
 func run() {
 	api, err := tgbotapi.NewBotAPI(conf.Token)
+
 	if err != nil {
 		panic(err)
 	}
@@ -399,18 +409,21 @@ func run() {
 	DebugLog("Authorized on account %s", api.Self.UserName)
 	helpText := botCommandHelp()
 	go sendMsgBot(api, helpText)
-	go messageAligner(messageAlignerChan, api, messageAlignerStopChan, helpText)
 
-	for k := range conf.Tips {
-		id, _ := strconv.ParseInt(k, 0, 64)
-		go tipsBot(api, id)
-	}
+	// 以下功能不需要
+	//go messageAligner(messageAlignerChan, api, messageAlignerStopChan, helpText)
+
+	//for k := range conf.Tips {
+	//	id, _ := strconv.ParseInt(k, 0, 64)
+	//	go tipsBot(api, id)
+	//}
+
 }
 
 func init() {
-	log.SetErrorColor(but.COLOR_YELLOW, false)
-	log.SetInfoColor(but.COLOR_BLUE, false)
-	log.SetWarnColor(but.COLOR_RED, false)
+	log.SetErrorColor(but.COLOR_RED, false)
+	log.SetInfoColor(but.COLOR_CYAN, false)
+	log.SetWarnColor(but.COLOR_YELLOW, false)
 }
 
 func initRedis() {

@@ -6,7 +6,7 @@ import (
 	"bitbucket.org/magmeng/go-utils/log"
 )
 
-var debugOn = flag.Bool("debug", false, "debug mode")
+var debugOn = flag.Bool("debug", true, "debug mode")
 
 func Infof(format string, args ...interface{}) {
 	log.InfoflnN(1, format, args...)
