@@ -11,15 +11,27 @@ import (
 )
 
 func bindingYW(api *tgbotapi.BotAPI, message *tgbotapi.Message) {
+	startTime := time.Unix(1527844879, 0)
+	if time.Now().Unix() > startTime.Unix() {
+		sendTextMessage(
+			api,
+			message.Chat.ID,
+			"请私聊机器宝宝/receive CODE码领取奖励 @[sssnet_bot]",
+			time.Duration(conf.DeleteBotMsgDelay)*time.Second,
+			false,
+			message.MessageID,
+		)
+	}else {
+		sendTextMessage(
+			api,
+			message.Chat.ID,
+			"活动尚未开始，请留意官方公告",
+			time.Duration(conf.DeleteBotMsgDelay)*time.Second,
+			false,
+			message.MessageID,
+		)
+	}
 
-	sendTextMessage(
-		api,
-		message.Chat.ID,
-		"哦, 私聊我你的云网code吧~\n\n注意: 格式 /binding(空格)邀请码, 不要附带其他信息哈.",
-		time.Duration(conf.DeleteBotMsgDelay)*time.Second,
-		false,
-		message.MessageID,
-	)
 }
 
 
@@ -444,7 +456,7 @@ func handleInstantCommand(api *tgbotapi.BotAPI, message *tgbotapi.Message, helpT
 			//	muteMethod(api, message, helpText)
 			//case "领取":
 			//	getMethod(api, message, instruction)
-			case "binding":
+			case "receive":
 				bindingYW(api, message)
 			default:
 				sendTextMessage(

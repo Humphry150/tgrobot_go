@@ -33,8 +33,67 @@ type chatMessage struct {
 }
 
 // 绑定用户云网帐号
-func doBindingYW() {
+func doBindingYW(api *tgbotapi.BotAPI, msg *tgbotapi.Message, code string) {
+	//先查看本地缓存, 如果用户的电报号没有领取过,则进行领取
+	if (!isYWUserRewarded(msg.Chat.ID, code)) {
+		// 判断用户的code是否已经领取过
+		if !isYWCodeExist(code) {
+			// 这里请求网络, 然后返回接口文档
+			errString := ywreceiveCode(code)
+			log.Infof("errString is: ", errString)
 
+			if len(errString) > 0 {
+				var text string
+				// 表示有错误
+				switch errString {
+				case "bad code":
+					text = "验证失败，请检查所填CODE码是否正确"
+				case "code used":
+					text = "验证失败，该CODE码已被使用"
+				case "balance not enouth":
+					text = "本轮活动奖励已发放完毕，谢谢参与"
+				case "verify_failed":
+					text = "实名认证失败，请在实名认证通过后再提交CODE码领取奖励"
+				case "verify_ing":
+					text = "实名认证审核中，请在实名认证通过后再提交CODE码领取奖励"
+				case "verify_not_sub":
+					text = "该账号未进行实名认证，请在实名认证通过后再提交CODE码领取奖励[https://yunex.io/safe/auth/id]"
+				//case "args":
+				case "activity not ok":
+					text = "活动异常"
+				case "activity not begin or already end":
+					text = "活动尚未开始或已结束，请留意官方公告"
+				default:
+					text = "系统错误"
+				}
+				sendTextMessage(api, msg.Chat.ID, text, 0, false)
+			}else {
+				sendTextMessage(api, msg.Chat.ID, "验证成功，奖励将在两天内发放至Yunex账号，请及时查收", 0, false)
+				// 成功, 则记录数据
+				recordYWRewardedUser(msg.Chat.ID, code)
+			}
+		}else {
+			sendTextMessage(api, msg.Chat.ID, "验证失败，该CODE码已被使用", 0, false)
+		}
+	}else {
+		//已经领取过, 直接回复文案 "该账号已领取过奖励，请勿重复领取"
+		sendTextMessage(api, msg.Chat.ID, "该账号已领取过奖励，请勿重复领取\n", 0, false)
+		record := redisClient.Get(strings.Join([]string{"YWCODE",toString(msg.Chat.ID), code}, "_")).Val()
+		sendTextMessage(api, msg.Chat.ID, record,0, false)
+	}
+}
+
+func isYWUserRewarded(chatID int64, code string) bool {
+	return strings.Contains(redisClient.Get(strings.Join([]string{"YWCODE",toString(chatID)}, "_")).Val(), "recorded")
+}
+
+func isYWCodeExist(code string) bool {
+	return redisClient.Get("YWCODE_" + code).Val() == code
+}
+
+func recordYWRewardedUser(chatID int64, code string) {
+	redisClient.Set(strings.Join([]string{"YWCODE",toString(chatID)}, "_"), "recorded" + code, 0)
+	redisClient.Set("YWCODE_" + code, code, 0)
 }
 
 // 将需要队列处理的消息全部丢进队列，机器人每隔一段时间对消息进行处理
@@ -260,7 +319,7 @@ func handleURLMessage(api *tgbotapi.BotAPI, msg *tgbotapi.Message) {
 
 		if n != m {
 			deleteUserMessage(api, msg, "url")
-			restrictUser(api, msg.Chat.ID, msg.From.ID, 24)
+			//restrictUser(api, msg.Chat.ID, msg.From.ID, 24)
 		}
 	}
 }
@@ -305,7 +364,7 @@ func checkMessage(api *tgbotapi.BotAPI, msg *tgbotapi.Message) {
 	// handlePhotoMessage(api, msg)
 	handleDocumentMessage(api, msg)
 	handleURLMessage(api, msg)
-	handleBlackList(api, msg)
+	//handleBlackList(api, msg)
 	// handleNewMemberMessage(api, msg)
 }
 
@@ -314,8 +373,8 @@ func handleCommand(api *tgbotapi.BotAPI, msg *tgbotapi.Message, helpText string)
 		//if msg.Command() == "start" {
 		//	isPrivateChatRequest(fmt.Sprintf("%d", msg.From.ID))
 		//}
-		if msg.Command() == "binding" && len(msg.CommandArguments()) > 0 {
-			sendTextMessage(api, msg.Chat.ID, "你的code是" + msg.CommandArguments() + " 请稍等,我正在给你处理...", 0, false)
+		if msg.Command() == "receive" && len(msg.CommandArguments()) > 0 {
+			doBindingYW(api, msg, msg.CommandArguments())
 			return
 		}
 	}
@@ -353,9 +412,9 @@ func handleMessage(api *tgbotapi.BotAPI, msg *tgbotapi.Message, helpText string)
 		checkMessage(api, msg)
 	}
 
-	if isChatToManage(msg.Chat) {
-		recordInviteship(msg)
-	}
+	//if isChatToManage(msg.Chat) {
+	//	recordInviteship(msg)
+	//}
 
 	handleCommand(api, msg, helpText)
 }
@@ -445,7 +504,6 @@ func Run(configPath string) {
 	//go conhotDividend()
 	initRedis()
 	//go RollerMonitor()
-
 	//initRegisterdMembers()
 	run()
 

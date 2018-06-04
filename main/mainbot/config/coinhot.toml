@@ -7,17 +7,25 @@ coinhot_address = "http://10.1.1.170:8000"
 delete_bot_msg_delay = 0
 
 # 管理员ID白名单
-white_list = []
+white_list = [445900597]
 
 url_white_list = [
-        "coinhot.io",
-        "coinhot.com",
+        "snetwork.io",
+        "www.lltoken.com",
         "dragonex.io",
         "dragonex.im",
         "blockchain.info",
         "etherscan.io",
-        "t.me/coinhot",
+        "yunex.io",
         "t.me/dragonex_io",
+        "t.me/snetwork_official",
+        "0.plus/snetwork_official",
+        "http://cex.plus",
+        "https://cex.com",
+        "https://gate.io",
+        "https://gateio.io",
+        "http://www.bcex.top",
+        "https://www.bcex.ca",
     ]
     
 
@@ -27,7 +35,7 @@ welcome_extra_msg = "\n[CoinHot](https://coinhot.io)快速入门：请使用命�
 tips_interval = 3000
 
 # 要管理的群ID
-chats_to_manage = []
+chats_to_manage = [-1001162878413]
 
 [roller_config]
     rank_path = "/Users/freeza/tmp/roller/rank/"
@@ -67,7 +75,7 @@ chats_to_manage = []
 command = "help"
 args = []
 type = "text"
-text = "1. 所有命令不区分大小写\n2. 命令统一格式为：命令+空格+参数（多个参数使用空格分开）\n3. 所有命令一览：\n\n`/help           命令帮助\n/binding        绑定云网\n`"
+text = "1. 所有命令不区分大小写\n2. 命令统一格式为：命令+空格+参数（多个参数使用空格分开）\n3. 所有命令一览：\n\n`/help           命令帮助\n/receive        领取奖励\n`"
 
 
 [[commands]]
@@ -189,7 +197,7 @@ type = "method"
 text = "CoinHot壕礼四连击，千万大礼等你来！\n\n活动时间：2018年5月16日-6月16日\n\n大礼一：注册CoinHot.com送壕礼！百万奖池送新人！\n\n大礼二：体验CoinHot场外交易平台，最高奖10000CHT！\n\n大礼三：群里天天摇骰子，15%中奖率，海量CHT轻松拿！\n\n大礼四：轻松一刻，加群实名通通有礼，快快来领！\n\n活动详情（必看）：http://t.cn/R3Ghbwy\n\n'/领取'命令使用方式：\n\n`/领取 注册奖励\n/领取 交易奖励\n/领取 实名奖励\n/领取 邀请奖励`"
 
 [[commands]]
-command = "binding"
+command = "receive"
 args = []
 type = "method"
 text = ""

@@ -10,6 +10,10 @@ import (
 	"github.com/go-telegram-bot-api/telegram-bot-api"
 
 	"github.com/parnurzeal/gorequest"
+	"math/rand"
+	"encoding/json"
+	"crypto/md5"
+	"encoding/hex"
 )
 
 func makeRequest(method, url string, p map[string]string) *gorequest.SuperAgent {
@@ -21,6 +25,58 @@ func makeRequest(method, url string, p map[string]string) *gorequest.SuperAgent 
 		req.Proxy("http://127.0.0.1:1087")
 	}
 	return req
+}
+
+func getNonce() (nonce string) {
+	s := "1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	t := time.Now().UTC()
+	r := rand.New(rand.NewSource(t.UnixNano()))
+	for i := 0; i < 8; i++ {
+		a := s[r.Intn(len(s)-1)]
+		nonce += string(a)
+	}
+	return
+}
+
+func ywreceiveCode(code string) string {
+	req := makeRequest("POST", fmt.Sprintf("%s/api/user/act/tg/snet/prize/","https://a.yunex.io"), nil)
+	jsonStr := fmt.Sprintf(`{"code":"%s"}`, code)
+
+	var jsonData map[string]interface{}
+	json.Unmarshal([]byte(jsonStr), &jsonData)
+
+	ts := fmt.Sprintf("%v", time.Now().Unix())
+	nonce := getNonce()
+	secret := "7P534HD2BVOL"
+	signStr := fmt.Sprintf("%s%s%s%s", jsonStr, ts, nonce, secret)
+
+	fmt.Printf("\n\n\nbody:%s ts:%s nonce:%s secret:%s\n\n", jsonStr, ts, nonce, secret)
+	fmt.Printf("signStr:%s\n\n\n", signStr)
+
+
+	h := md5.New()
+	h.Write([]byte(signStr))
+	sign := hex.EncodeToString(h.Sum(nil))
+	fmt.Printf("md5 is:%s\n\n\n", sign)
+
+	req.Header["x-bitex-ts"] = ts
+	req.Header["x-bitex-nonce"] = nonce
+	req.Header["x-bitex-sign"] = sign
+	req.Header["Content-Type"] = "application/json"
+	req.SendStruct(jsonData)
+
+	var resp map[string]interface{}
+	req.EndStruct(&resp)
+	if resp["ok"] == "true" {
+		return ""
+	}else {
+		if (resp["reason"] != nil) {
+			return resp["reason"].(string)
+		}else {
+			return "sys error"
+		}
+	}
+
 }
 
 // dragonex.io listcoin api
