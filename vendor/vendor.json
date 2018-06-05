@@ -1,0 +1,115 @@
+{
+	"comment": "",
+	"ignore": "test",
+	"package": [
+		{
+			"checksumSHA1": "kzZd2Gj6qQukolwRfp5evOuIpWQ=",
+			"path": "bitbucket.org/magmeng/go-utils/but4print",
+			"revision": "37693e6c7f4197c49ae1425018998894bae9d524",
+			"revisionTime": "2018-05-22T09:49:20Z"
+		},
+		{
+			"checksumSHA1": "HrBzKAcNt4jl/NEQJg9Yjz/WaBA=",
+			"path": "bitbucket.org/magmeng/go-utils/go-map",
+			"revision": "37693e6c7f4197c49ae1425018998894bae9d524",
+			"revisionTime": "2018-05-22T09:49:20Z"
+		},
+		{
+			"checksumSHA1": "eZGlI1eml/5zf59BAHwhXdSG++0=",
+			"path": "bitbucket.org/magmeng/go-utils/log",
+			"revision": "37693e6c7f4197c49ae1425018998894bae9d524",
+			"revisionTime": "2018-05-22T09:49:20Z"
+		},
+		{
+			"checksumSHA1": "Pc2ORQp+VY3Un/dkh4QwLC7R6lE=",
+			"path": "github.com/BurntSushi/toml",
+			"revision": "a368813c5e648fee92e5f6c30e3944ff9d5e8895",
+			"revisionTime": "2017-06-26T11:06:00Z"
+		},
+		{
+			"checksumSHA1": "IiH+Gy/F0Xjak7VL5aTb+Phc1IM=",
+			"path": "github.com/go-telegram-bot-api/telegram-bot-api",
+			"revision": "212b1541150cbfcc268fbeb3b15c14383e638409",
+			"revisionTime": "2018-04-28T18:50:02Z"
+		},
+		{
+			"checksumSHA1": "CxNwJP++vjUAyy3bbJnNss1Il9Q=",
+			"path": "github.com/moul/http2curl",
+			"revision": "9ac6cf4d929b2fa8fd2d2e6dec5bb0feb4f4911d",
+			"revisionTime": "2017-09-19T18:10:01Z"
+		},
+		{
+			"checksumSHA1": "UmYMPKuYIY/PPRYaixh8FuR0X64=",
+			"path": "github.com/parnurzeal/gorequest",
+			"revision": "a578a48e8d6ca8b01a3b18314c43c6716bb5f5a3",
+			"revisionTime": "2017-02-20T17:20:57Z"
+		},
+		{
+			"checksumSHA1": "rJab1YdNhQooDiBWNnt7TLWPyBU=",
+			"path": "github.com/pkg/errors",
+			"revision": "f15c970de5b76fac0b59abb32d62c17cc7bed265",
+			"revisionTime": "2017-10-18T19:55:50Z"
+		},
+		{
+			"checksumSHA1": "t8jzPFIv4DNACv+cuZoigNmjPLQ=",
+			"path": "github.com/technoweenie/multipartstreamer",
+			"revision": "a90a01d73ae432e2611d178c18367fbaa13e0154",
+			"revisionTime": "2013-10-20T00:18:33Z"
+		},
+		{
+			"checksumSHA1": "nt4o3cMOyP9prgVeAZgRf82/Et0=",
+			"path": "golang.org/x/net/publicsuffix",
+			"revision": "a04bdaca5b32abe1c069418fb7088ae607de5bd0",
+			"revisionTime": "2017-10-03T05:09:24Z"
+		},
+		{
+			"checksumSHA1": "+4r0PnLwwyhO5/jvU5R/TEJb4kA=",
+			"path": "gopkg.in/bsm/ratelimit.v1",
+			"revision": "db14e161995a5177acef654cb0dd785e8ee8bc22",
+			"revisionTime": "2016-02-20T15:49:07Z"
+		},
+		{
+			"checksumSHA1": "SPIlcnhp57fmsD8mejIaOLFtmpI=",
+			"path": "gopkg.in/redis.v4",
+			"revision": "c938162545c57136fa59879746bc65d0f1db3d1e",
+			"revisionTime": "2016-12-20T10:13:33Z"
+		},
+		{
+			"checksumSHA1": "u24d3wK+Otp3+nu3wSQOMqhg+N8=",
+			"path": "gopkg.in/redis.v4/internal",
+			"revision": "c938162545c57136fa59879746bc65d0f1db3d1e",
+			"revisionTime": "2016-12-20T10:13:33Z"
+		},
+		{
+			"checksumSHA1": "l+1jiOGUyjHP0u0mB+KiT/UHVcY=",
+			"path": "gopkg.in/redis.v4/internal/consistenthash",
+			"revision": "c938162545c57136fa59879746bc65d0f1db3d1e",
+			"revisionTime": "2016-12-20T10:13:33Z"
+		},
+		{
+			"checksumSHA1": "XxoAGEMN5ZCJJ3FeDMSTVhvscHg=",
+			"path": "gopkg.in/redis.v4/internal/errors",
+			"revision": "c938162545c57136fa59879746bc65d0f1db3d1e",
+			"revisionTime": "2016-12-20T10:13:33Z"
+		},
+		{
+			"checksumSHA1": "6XSNzBg5bzd2TjEfC/q41tPT/Zg=",
+			"path": "gopkg.in/redis.v4/internal/hashtag",
+			"revision": "c938162545c57136fa59879746bc65d0f1db3d1e",
+			"revisionTime": "2016-12-20T10:13:33Z"
+		},
+		{
+			"checksumSHA1": "fYkMv2BMIeHKM1VirUzJ7A/jG7w=",
+			"path": "gopkg.in/redis.v4/internal/pool",
+			"revision": "c938162545c57136fa59879746bc65d0f1db3d1e",
+			"revisionTime": "2016-12-20T10:13:33Z"
+		},
+		{
+			"checksumSHA1": "BGzuM8ZpMCmTKWnb/3CtrV4OwDU=",
+			"path": "gopkg.in/redis.v4/internal/proto",
+			"revision": "c938162545c57136fa59879746bc65d0f1db3d1e",
+			"revisionTime": "2016-12-20T10:13:33Z"
+		}
+	],
+	"rootPath": "bitbucket.org/magmeng/hotbot"
+}

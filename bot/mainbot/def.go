@@ -6,6 +6,8 @@ type BotConfig struct {
 	ChatsToManage     []int64             `toml:"chats_to_manage"`
 	Commands          []*BotCommand       `toml:"commands"`
 	DeleteBotMsgDelay int64               `toml:"delete_bot_msg_delay"`
+	ReceiveStartTime  int64               `toml:"receive_start_time"`
+	ReceiveEndTime    int64               `toml:"receive_end_time"`
 	TipsInterval      int64               `toml:"tips_interval"`
 	WhiteList         []int               `toml:"white_list"`
 	URLWhiteList      []string            `toml:"url_white_list"`

@@ -1,10 +1,12 @@
 # coinhost_test_bot
-token = "575982563:AAGKVGQ4asyZdrmO7Z03-RB4Xtm68UZoRq8"
+token = "612816108:AAH5AJJ0k6Vkqu-4fC38X7bQYDV0W9kkSAM"
 coinhot_address = "http://10.1.1.170:8000"
 
 
 # unit: second
 delete_bot_msg_delay = 0
+receive_start_time = 1528178400
+receive_end_time = 1528783200
 
 # 管理员ID白名单
 white_list = [445900597]
@@ -75,7 +77,7 @@ chats_to_manage = [-1001162878413]
 command = "help"
 args = []
 type = "text"
-text = "1. 所有命令不区分大小写\n2. 命令统一格式为：命令+空格+参数（多个参数使用空格分开）\n3. 所有命令一览：\n\n`/help           命令帮助\n/receive        领取奖励\n`"
+text = "1. 命令统一格式为：命令+空格+参数\n2. 所有命令一览：\n\n`/help           命令帮助\n/receive        领取奖励\n`"
 
 
 [[commands]]

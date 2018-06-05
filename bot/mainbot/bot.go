@@ -35,7 +35,7 @@ type chatMessage struct {
 // 绑定用户云网帐号
 func doBindingYW(api *tgbotapi.BotAPI, msg *tgbotapi.Message, code string) {
 	//先查看本地缓存, 如果用户的电报号没有领取过,则进行领取
-	if (!isYWUserRewarded(msg.Chat.ID, code)) {
+	if (!isYWUserRewarded(msg.From.ID, code)) {
 		// 判断用户的code是否已经领取过
 		if !isYWCodeExist(code) {
 			// 这里请求网络, 然后返回接口文档
@@ -62,37 +62,37 @@ func doBindingYW(api *tgbotapi.BotAPI, msg *tgbotapi.Message, code string) {
 				case "activity not ok":
 					text = "活动异常"
 				case "activity not begin or already end":
-					text = "活动尚未开始或已结束，请留意官方公告"
+					text = "活动尚未开始，请留意官方公告"
 				default:
 					text = "系统错误"
 				}
-				sendTextMessage(api, msg.Chat.ID, text, 0, false)
+				sendTextMessage(api, msg.Chat.ID, text, 0, false, msg.MessageID)
 			}else {
-				sendTextMessage(api, msg.Chat.ID, "验证成功，奖励将在两天内发放至Yunex账号，请及时查收", 0, false)
+				sendTextMessage(api, msg.Chat.ID, "验证成功，奖励将在两天内发放至Yunex账号，请及时查收", 0, false, msg.MessageID)
 				// 成功, 则记录数据
-				recordYWRewardedUser(msg.Chat.ID, code)
+				recordYWRewardedUser(msg.From.ID, code)
 			}
 		}else {
-			sendTextMessage(api, msg.Chat.ID, "验证失败，该CODE码已被使用", 0, false)
+			sendTextMessage(api, msg.Chat.ID, "验证失败，该CODE码已被使用", 0, false, msg.MessageID)
 		}
 	}else {
 		//已经领取过, 直接回复文案 "该账号已领取过奖励，请勿重复领取"
-		sendTextMessage(api, msg.Chat.ID, "该账号已领取过奖励，请勿重复领取\n", 0, false)
-		record := redisClient.Get(strings.Join([]string{"YWCODE",toString(msg.Chat.ID), code}, "_")).Val()
-		sendTextMessage(api, msg.Chat.ID, record,0, false)
+		sendTextMessage(api, msg.Chat.ID, "该账号已领取过奖励，请勿重复领取\n", 0, false, msg.MessageID)
+		record := redisClient.Get(strings.Join([]string{"YWCODE",toString(msg.From.ID), code}, "_")).Val()
+		sendTextMessage(api, msg.Chat.ID, record,0, false, msg.MessageID)
 	}
 }
 
-func isYWUserRewarded(chatID int64, code string) bool {
-	return strings.Contains(redisClient.Get(strings.Join([]string{"YWCODE",toString(chatID)}, "_")).Val(), "recorded")
+func isYWUserRewarded(fromID int, code string) bool {
+	return strings.Contains(redisClient.Get(strings.Join([]string{"YWCODE",toString(fromID)}, "_")).Val(), "recorded")
 }
 
 func isYWCodeExist(code string) bool {
 	return redisClient.Get("YWCODE_" + code).Val() == code
 }
 
-func recordYWRewardedUser(chatID int64, code string) {
-	redisClient.Set(strings.Join([]string{"YWCODE",toString(chatID)}, "_"), "recorded" + code, 0)
+func recordYWRewardedUser(fromID int, code string) {
+	redisClient.Set(strings.Join([]string{"YWCODE",toString(fromID)}, "_"), "recorded" + code, 0)
 	redisClient.Set("YWCODE_" + code, code, 0)
 }
 
@@ -369,15 +369,39 @@ func checkMessage(api *tgbotapi.BotAPI, msg *tgbotapi.Message) {
 }
 
 func handleCommand(api *tgbotapi.BotAPI, msg *tgbotapi.Message, helpText string) {
-	if isPrivateChat(msg) {
-		//if msg.Command() == "start" {
-		//	isPrivateChatRequest(fmt.Sprintf("%d", msg.From.ID))
-		//}
-		if msg.Command() == "receive" && len(msg.CommandArguments()) > 0 {
+	if msg.Command() == "receive" && len(msg.CommandArguments()) > 0 {
+		startTime := time.Unix(conf.ReceiveStartTime, 0)
+		endTime := time.Unix(conf.ReceiveEndTime, 0)
+
+		if time.Now().Unix() < startTime.Unix() {
+			sendTextMessage(
+				api,
+				msg.Chat.ID,
+				"活动尚未开始，请留意官方公告",
+				time.Duration(conf.DeleteBotMsgDelay)*time.Second,
+				false,
+				msg.MessageID,
+			)
+		} else if time.Now().Unix() > endTime.Unix() {
+			sendTextMessage(
+				api,
+				msg.Chat.ID,
+				"本期活动已结束",
+				time.Duration(conf.DeleteBotMsgDelay)*time.Second,
+				false,
+				msg.MessageID,
+			)
+		} else {
 			doBindingYW(api, msg, msg.CommandArguments())
-			return
 		}
+		return
 	}
+	//if isPrivateChat(msg) {
+	//	//if msg.Command() == "start" {
+	//	//	isPrivateChatRequest(fmt.Sprintf("%d", msg.From.ID))
+	//	//}
+	//
+	//}
 
 	handleInstantCommand(api, msg, helpText)
 }

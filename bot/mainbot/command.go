@@ -11,21 +11,32 @@ import (
 )
 
 func bindingYW(api *tgbotapi.BotAPI, message *tgbotapi.Message) {
-	startTime := time.Unix(1527844879, 0)
-	if time.Now().Unix() > startTime.Unix() {
-		sendTextMessage(
-			api,
-			message.Chat.ID,
-			"请私聊机器宝宝/receive CODE码领取奖励 @[sssnet_bot]",
-			time.Duration(conf.DeleteBotMsgDelay)*time.Second,
-			false,
-			message.MessageID,
-		)
-	}else {
+	startTime := time.Unix(conf.ReceiveStartTime, 0)
+	endTime := time.Unix(conf.ReceiveEndTime, 0)
+
+	if time.Now().Unix() < startTime.Unix() {
 		sendTextMessage(
 			api,
 			message.Chat.ID,
 			"活动尚未开始，请留意官方公告",
+			time.Duration(conf.DeleteBotMsgDelay)*time.Second,
+			false,
+			message.MessageID,
+		)
+	} else if time.Now().Unix() > endTime.Unix() {
+		sendTextMessage(
+			api,
+			message.Chat.ID,
+			"本期活动已结束",
+			time.Duration(conf.DeleteBotMsgDelay)*time.Second,
+			false,
+			message.MessageID,
+		)
+	} else {
+		sendTextMessage(
+			api,
+			message.Chat.ID,
+			"请发送/receive CODE码领取奖励 ，例/receive 123abc，命令统一格式为：命令+空格+参数",
 			time.Duration(conf.DeleteBotMsgDelay)*time.Second,
 			false,
 			message.MessageID,
