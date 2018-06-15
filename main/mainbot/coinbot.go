@@ -4,6 +4,8 @@ import (
 	"flag"
 
 	"bitbucket.org/magmeng/hotbot/bot/mainbot"
+
+	"../../bot/mainbot"
 )
 
 var configPath = flag.String("c", "./config/coinhot.toml", "配置")

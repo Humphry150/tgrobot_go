@@ -365,7 +365,7 @@ func checkMessage(api *tgbotapi.BotAPI, msg *tgbotapi.Message) {
 	handleDocumentMessage(api, msg)
 	handleURLMessage(api, msg)
 	//handleBlackList(api, msg)
-	// handleNewMemberMessage(api, msg)
+	handleNewMemberMessage(api, msg)
 }
 
 func handleCommand(api *tgbotapi.BotAPI, msg *tgbotapi.Message, helpText string) {
